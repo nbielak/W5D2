@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RedditOnRails</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <ul>
+      <% if logged_in?%>
+        <li><%= current_user.username %></li>
+        <li>
+          <a href="<%= new_sub_url %>">Create New Sub</a>
+        </li>
+        <li>
+          <a href="<%= subs_url %>">All Subs</a>
+        </li>
+        <li>
+          <form action="<%= session_url %>" method="post">
+            <%= auth_token %>
+            <input type="hidden" name="_method" value="delete">
+            
+            <input type="submit" name="" value="Log Out">
+          </form>
+        </li>
+        <% else %>
+          <li>
+            <a href="<%= new_session_url %>">Log In</a>
+          </li>
+          <li>
+            <a href="<%= new_user_url %>">Sign Up</a>
+          </li>
+      <% end %>
+    </ul>
+  
+    <%= yield %>
+  </body>
+</html>

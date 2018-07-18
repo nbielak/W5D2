@@ -1,0 +1,43 @@
+<h1> <a href="<%=post_url(@post)%>"> <%= @post.title %></a> by <%= @post.author.username %> </h1>
+
+<div>
+  <p>Content:</p>
+  
+  <p> <%=@post.content%> </p>
+</div>
+
+
+
+<h4>Subs</h4>
+
+<ul>
+  <% @post.sub_ids.each do |sub_id| %>
+    <li>
+      <a href="<%= sub_url(sub_id) %>"><%=sub_id%></a>
+    </li>
+  <% end %>
+</ul>
+
+<div class="">
+  <h4>Comments :</h4>
+  <ul>
+    <% @post.comments.each do |comment| %>
+      <%= comment.content %>
+    <% end %>
+  </ul>
+</div>
+
+<h4>Add Comments</h4>
+<form action="<%=comments_url%>" method="post">
+  <%=auth_token%>
+  
+  <textarea name="comment[content]"></textarea>
+  
+  <input type="submit" name="" value="Add Comment">
+</form>
+
+
+
+<a href="<%=edit_post_url(@post)%>">Edit Post</a>
+
+
